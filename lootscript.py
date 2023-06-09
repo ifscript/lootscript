@@ -84,7 +84,10 @@ def postlikes(likes):
     for bdi in likes("bdi"):
         bdi.decompose() # Remove player names
     # Return counted likes plus the 3 being counted
-    return int(re.findall(r"\d+", likes.get_text(strip=True))[0]) + Nl
+    try:
+        return int(re.findall(r"\d+", likes.get_text(strip=True))[0]) + Nl
+    except IndexError:
+        return Nl # No additional likes
             
 def post_text_cleanup(testext,postid,junkclass=["js-extraPhrases"]):
     """
