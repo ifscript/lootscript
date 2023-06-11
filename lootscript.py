@@ -79,8 +79,6 @@ def postlikes(likes):
     if likes==None: # Check for likes
         return(0)
     Nl=len(likes.find_all('bdi')) # count directly mentioned likes 
-    if Nl<3:
-        return(Nl)
     try:
         return(int(str(likes)[-17:-15])+Nl) # test for futher likes
         # 1-2 Stellige Zahl zwischen index -17 und -15
