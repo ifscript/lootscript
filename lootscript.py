@@ -77,17 +77,16 @@ def rule_check(text,len_text): # Werden die Regeln befolgt? True/False
 
 def postlikes(likes):
     if likes is None: # Check for likes
-        return(0)
-    Nl=len(likes.find_all('bdi')) # count directly mentioned likes 
-    if Nl<3:
-        return(Nl)
+        return 0
+    n_likes = len(likes.find_all('bdi')) # count directly mentioned likes 
     for bdi in likes("bdi"):
         bdi.decompose() # Remove player names
-    # Return counted likes plus the 3 being counted
     try:
-        return int(re.findall(r"\d+", likes.get_text(strip=True))[0]) + Nl
+        # try counting further likes
+        n_likes += int(re.findall(r"\d+", likes.get_text(strip=True))[0])
     except IndexError:
-        return Nl # No additional likes
+        pass  # No additional likes
+    return n_likes
             
 def post_text_cleanup(testext,postid,junkclass=["js-extraPhrases"]):
     """
